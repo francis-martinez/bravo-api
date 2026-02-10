@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+  </head>
+  <body>
+    <h1>Bravo</h1>
+    <h2>Ping</h2>
+    <h3 id="ping-result"></h3>
+
+    <script type="module">
+      import init, { ping } from "./pkg/openapi.js";
+
+      async function run() {
+        await init();
+        const pingRes = await ping();
+
+        const pingResult = document.getElementById("ping-result");
+
+        pingResult.textContent = pingRes.message;
+
+        console.log(pingRes);
+      }
+
+      run();
+    </script>
+  </body>
+</html>
