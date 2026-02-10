@@ -11,13 +11,19 @@
     <script type="module">
       import init, { ping } from "./pkg/openapi.js";
 
+      async function login() {
+        const username = prompt("Username:");
+        const password = prompt("Password:");
+      }
+
       async function run() {
         await init();
+
         const pingRes = await ping();
 
         const pingResult = document.getElementById("ping-result");
 
-        pingResult.textContent = pingRes.message;
+        pingResult.textContent = pingRes.ok ? "✅ API is up" : "❌ API error";
 
         console.log(pingRes);
       }

@@ -15,15 +15,11 @@ use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::future_to_promise;
 
 #[wasm_bindgen]
-pub fn ping() -> js_sys::Promise {
-    future_to_promise(async move {
-        let config = apis::configuration::Configuration::default();
+pub async fn ping() -> Result<JsValue, JsValue> {
+    let config = apis::configuration::Configuration::default();
 
-        let ping = apis::default_api::get_ping(&config);
-
-        match ping.await {
-            Ok(ping) => Ok(to_value(&ping).unwrap()),
-            Err(e) => Err(JsValue::from_str(&format!("Error fetching ping: {}", e))),
-        }
-    })
+    match apis::default_api::get_ping(&config).await {
+        Ok(ping) => Ok(to_value(&ping).unwrap()),
+        Err(e) => Err(JsValue::from_str(&format!("Error fetching ping: {}", e))),
+    }
 }

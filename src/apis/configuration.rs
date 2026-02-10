@@ -33,15 +33,28 @@ impl Configuration {
     }
 }
 
+const DEV_TOKEN: &str = "USER_TOKEN_HERE";
+
 impl Default for Configuration {
     fn default() -> Self {
         Configuration {
             base_path: "http://localhost:3000".to_owned(),
             user_agent: Some("OpenAPI-Generator/1.0.0/rust".to_owned()),
-            client: reqwest::Client::new(),
+            client: {
+                let mut headers = reqwest::header::HeaderMap::new();
+                headers.insert(
+                    reqwest::header::AUTHORIZATION,
+                    format!("Bearer {}", DEV_TOKEN).parse().unwrap(),
+                );
+
+                reqwest::Client::builder()
+                    .default_headers(headers)
+                    .build()
+                    .unwrap()
+            },
             basic_auth: None,
             oauth_access_token: None,
-            bearer_access_token: None,
+            bearer_access_token: Some(DEV_TOKEN.to_string()),
             api_key: None,
         }
     }
