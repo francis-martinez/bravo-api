@@ -6,4 +6,4 @@ Cargo.lock
 /node_modules
 
 # env files
-.env*
+.env

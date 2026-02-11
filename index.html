@@ -5,9 +5,8 @@
   </head>
   <body>
     <h1>Bravo</h1>
-    <!-- <h2>Ping</h2>
-    <h3 id="ping-result"></h3> -->
     <button onclick="doLogin()">Login</button>
+    <h3 id="ping-result"></h3>
 
     <script type="module">
       import init, { ping, login } from "./pkg/openapi.js";
@@ -26,8 +25,6 @@
           const pingResult = document.getElementById("ping-result");
 
           pingResult.textContent = pingRes.ok ? "✅ API is up" : "❌ API error";
-
-          console.log("Ping:", pingRes);
         } catch (err) {
           console.error(err);
         }
@@ -49,10 +46,7 @@
 
         try {
           const result = await login(username, password);
-          console.log("Login response:", result);
-          localStorage.setItem("token", result.access_token);
-
-          alert("Login successful!");
+          doPing();
         } catch (err) {
           console.error(err);
           alert("Login failed");

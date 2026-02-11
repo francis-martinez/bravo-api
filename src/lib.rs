@@ -8,15 +8,17 @@ extern crate serde_repr;
 extern crate url;
 
 pub mod apis;
+pub mod app_state;
 pub mod models;
 
+use crate::app_state::CONFIG;
 use serde_wasm_bindgen::to_value;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::future_to_promise;
 
 #[wasm_bindgen]
 pub async fn ping() -> Result<JsValue, JsValue> {
-    let config = apis::configuration::Configuration::default();
+    let config = { CONFIG.lock().unwrap().clone() };
 
     match apis::default_api::get_ping(&config).await {
         Ok(ping) => Ok(to_value(&ping).unwrap()),

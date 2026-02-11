@@ -189,6 +189,10 @@ pub async fn get_ping(
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
 
+    if let Some(ref token) = configuration.bearer_access_token {
+        req_builder = req_builder.bearer_auth(token);
+    }
+
     let req = req_builder.build()?;
     let resp = configuration.client.execute(req).await?;
 
