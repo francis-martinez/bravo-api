@@ -1,45 +1,4 @@
-[package]
-name = "openapi"
-version = "1.0.0"
-authors = ["OpenAPI Generator team and contributors"]
-description = "Bravo OpenAPI client library"
-# Override this license by providing a License Object in the OpenAPI.
-license = "Unlicense"
-edition = "2021"
+[workspace]
+members = ["crates/bravo-core", "crates/bravo-wasm"]
 
-[dependencies]
-serde = { version = "^1.0", features = ["derive"] }
-serde_with = { version = "^3.8", default-features = false, features = [
-    "base64",
-    "std",
-    "macros",
-] }
-serde_json = "^1.0"
-serde_repr = "^0.1"
-url = "^2.5"
-uuid = { version = "^1.8", features = ["serde", "v4", "js"] }
-tokio-util = { version = "^0.7", features = ["codec"] }
-reqwest = { version = "^0.13", default-features = false, features = [
-    "json",
-    "multipart",
-    "stream",
-    "query",
-    "form",
-] }
-wasm-bindgen = "0.2.108"
-serde-wasm-bindgen = "0.6.5"
-wasm-bindgen-futures = "0.4.58"
-js-sys = "0.3.85"
-gloo = "0.11.0"
-once_cell = "1.21.3"
-
-[build-dependencies]
-dotenvy = "0.15"
-
-[features]
-default = ["native-tls"]
-native-tls = ["reqwest/native-tls"]
-rustls = ["reqwest/rustls"]
-
-[lib]
-crate-type = ["cdylib", "rlib"]
+resolver = "2"
