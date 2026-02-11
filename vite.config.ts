@@ -9,6 +9,12 @@ export default defineConfig({
         changeOrigin: true,
         secure: true,
       },
+      "/auth-api": {
+        target: "https://login.dev.paprwrk.co",
+        changeOrigin: true,
+        secure: true,
+        rewrite: (path) => path.replace(/^\/auth-api/, ""),
+      },
     },
   },
 });

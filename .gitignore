@@ -1,3 +1,9 @@
 /target/
 **/*.rs.bk
 Cargo.lock
+
+# dependencies
+/node_modules
+
+# env files
+.env*

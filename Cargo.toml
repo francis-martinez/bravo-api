@@ -32,6 +32,9 @@ wasm-bindgen-futures = "0.4.58"
 js-sys = "0.3.85"
 gloo = "0.11.0"
 
+[build-dependencies]
+dotenvy = "0.15"
+
 [features]
 default = ["native-tls"]
 native-tls = ["reqwest/native-tls"]
