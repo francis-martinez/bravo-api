@@ -33,13 +33,9 @@ pub fn build_send_message(input: SendMessageInput) -> BravoChatRequest {
         input.visibility.unwrap_or(SelectedVisibilityType::Private),
     );
 
-    request.selected_chat_model = Some(input.model.unwrap_or(SelectedChatModel::Bravo));
-
     request.selected_module = Some(input.module);
 
     request.stream = Some(true);
-
-    request.response = Some(Response::Sse);
 
     request
 }
