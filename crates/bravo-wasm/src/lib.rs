@@ -1,11 +1,11 @@
 use uuid::Uuid;
 use wasm_bindgen::prelude::*;
 
-use bravo_core::{SendMessageInput, build_send_message};
-
+use bravo_core::StreamParser;
 use bravo_core::models::openapi::bravo_chat_request::{
     SelectedChatModel, SelectedModule, SelectedVisibilityType,
 };
+use bravo_core::{SendMessageInput, build_send_message};
 
 #[wasm_bindgen]
 pub fn build_request(conversation_id: Option<String>, text: String, module: String) -> JsValue {
@@ -32,4 +32,24 @@ pub fn build_request(conversation_id: Option<String>, text: String, module: Stri
     let request = build_send_message(input);
 
     serde_wasm_bindgen::to_value(&request).unwrap()
+}
+
+#[wasm_bindgen]
+pub struct WasmStreamParser {
+    inner: StreamParser,
+}
+
+#[wasm_bindgen]
+impl WasmStreamParser {
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> Self {
+        Self {
+            inner: StreamParser::new(),
+        }
+    }
+
+    pub fn push(&mut self, chunk: String) -> JsValue {
+        let events = self.inner.push(&chunk);
+        serde_wasm_bindgen::to_value(&events).unwrap()
+    }
 }
