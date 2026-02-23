@@ -1,4 +1,4 @@
 [workspace]
-members = ["crates/bravo-core", "crates/bravo-wasm"]
+members = ["bravo-core", "bravo-wasm"]
 
 resolver = "2"

@@ -1,4 +1,4 @@
-import { build_request, WasmStreamParser } from "bravo-wasm";
+import { build_request, StreamParser } from "bravo-wasm";
 
 export interface BravoClientConfig {
   tenantId: string;
@@ -14,12 +14,12 @@ export interface StreamMessageInput {
 
 export class BravoClient {
   private config: BravoClientConfig;
-  private parser: WasmStreamParser;
+  private parser: StreamParser;
 
   constructor(config: BravoClientConfig) {
     this.config = config;
 
-    this.parser = new WasmStreamParser();
+    this.parser = new StreamParser();
   }
 
   async *streamMessage(input: StreamMessageInput) {
